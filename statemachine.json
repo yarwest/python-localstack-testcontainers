@@ -1,0 +1,32 @@
+{
+    "Comment": "Example stepfunctions flow",
+    "StartAt": "Store item in DynamoDB",
+    "States": {
+        "Store item in DynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:putItem",
+            "Parameters": {
+                "TableName": "${mock_dynamodb_table_name}",
+                "Item.$": "$.item"
+            },
+            "Next": "Update item in DynamoDB",
+            "ResultPath": null
+        },
+        "Update item in DynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:updateItem",
+            "Parameters": {
+                "TableName": "${mock_dynamodb_table_name}",
+                "UpdateExpression": "SET item_status = :item_status",
+                "ExpressionAttributeValues": {
+                    ":item_status": {
+                        "S": "updated"
+                    }
+                },
+                "Key": {"item_id.$": "$.item.item_id" }
+            },
+            "End": true,
+            "ResultPath": null
+        }
+    }
+}
