@@ -22,6 +22,6 @@ If you are using a Windows platform, you need to activate the virtualenv like th
 
 After activating the virtual environment, the required dependencies (see `requirements.txt`) need to be installed, this can be done using pip:
 
-`pip3 install -r requirements.txt`
+`$ pip3 install -r requirements.txt`
 
 After succesfully fulfilling the dependencies, the test case can simply be executed using the `pytest` command.
